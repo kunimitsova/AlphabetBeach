@@ -10,6 +10,7 @@ public static class Constants {
     public const int TRIANGLE_SPAWN_DIST = 20;
     public const int SPAWN_VARIATION = 10;
 
+
     public const int MAX_WORD_LENGTH = 5;
 
     public const float PLAYER_SPEED_INIT = 1500f; 
@@ -22,7 +23,7 @@ public static class Constants {
     public const string davidMcDonaldURL = "https://www.youtube.com/@Letsmakeagametogether";
     public const string soundIconURL = "https://opengameart.org/content/sound-on-sound-off";
     public const string cc0URL = "https://creativecommons.org/publicdomain/zero/1.0/";
-    public const string piURL = "https://www.youtube.com/@popcornissues267";
+    public const string piURL = "https://www.popcornissues.com/";
 
     public const string davidMcdonaldlink = "DavidMcDonald";
     public const string soundIconLink = "soundiconLink";

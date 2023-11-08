@@ -13,16 +13,20 @@ public class AdsManager : MonoSingleton<AdsManager>, IUnityAdsInitializationList
     [SerializeField] string _androidAdUnitId = "Rewarded_Android";
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
     [SerializeField] string _androidBannerID = "Banner_Android";
+    [SerializeField] string _iOSBannerID = "Banner_iOS";
     string _adUnitId = null; // in case there's unsupported platforms [? why would anyway n/m]
+    string _bannerAdId = null;
     private string _gameId;
     public bool isAdLoaded = false;
     public bool isAdCompleted = false;
 
     void Awake() {
 #if UNITY_IOS
-_adUnitId = _iOSAdUnitId;
+        _adUnitId = _iOSAdUnitId;
+        _bannerAdId = _iOSBannerID;
 #elif UNITY_ANDROID
         _adUnitId = _androidAdUnitId;
+        _bannerAdId = _androidBannerID;
 #endif
         InitializeAds();
     }
@@ -40,7 +44,7 @@ _adUnitId = _iOSAdUnitId;
       _gameId = _androidGameId;
 #endif
         if (!Advertisement.isInitialized && Advertisement.isSupported) {
-            Advertisement.Initialize(_androidGameId, testMode, this);
+            Advertisement.Initialize(_gameId, testMode, this);
         }
     }
 
@@ -84,7 +88,7 @@ _adUnitId = _iOSAdUnitId;
                 break;
         }
         // Time.timeScale = 1; // (we don't really need it since the game is already stopped)
-        Advertisement.Banner.Show(_androidBannerID);
+        Advertisement.Banner.Show(_bannerAdId);
     }
 
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message) {
@@ -122,7 +126,7 @@ _adUnitId = _iOSAdUnitId;
     // directly from tutorial here (tutorial is https://www.youtube.com/watch?v=7pu_CpjBFtI&t=1412s from Smart Penguins )
     public void LoadBannerAd() {
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
-        Advertisement.Banner.Load(_androidBannerID,
+        Advertisement.Banner.Load(_bannerAdId,
             new BannerLoadOptions {
                 loadCallback = OnBannerLoaded,
                 errorCallback = OnBannerError
@@ -131,7 +135,7 @@ _adUnitId = _iOSAdUnitId;
     }
 
     void OnBannerLoaded() {
-        Advertisement.Banner.Show(_androidBannerID);
+        Advertisement.Banner.Show(_bannerAdId);
     }
 
     void OnBannerError(string message) {
